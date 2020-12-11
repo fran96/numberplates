@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NumberPlatesSearch = (props) => {
-	const { className, clientMessage, searchTerm, ...rest } = props;
+	const { className, clientMessage, searchTerm, keyDown, ...rest } = props;
 
 	const classes = useStyles();
 
@@ -38,9 +38,11 @@ const NumberPlatesSearch = (props) => {
 			</div>
 			<div className={classes.row}>
 				<SearchInput
+					style={{ margin: "0 auto" }}
 					className={classes.searchInput}
-					placeholder="Search Product"
+					placeholder="Enter Number plate"
 					onChange={searchTerm}
+					keyDown={keyDown}
 				/>
 			</div>
 		</div>

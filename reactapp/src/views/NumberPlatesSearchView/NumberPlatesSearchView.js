@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/styles";
 import { CommentsTable, NumberPlatesSearch } from "./components";
 import CommentService from "../../services/CommentService";
+import Card from "@material-ui/core/Card";
 const useStyles = makeStyles((theme) => ({
 	root: {
 		padding: theme.spacing(3),
@@ -15,7 +16,7 @@ const NumberPlatesSearchView = () => {
 	const classes = useStyles();
 	const [allComments, setAllComments] = useState([]);
 	const [Comments, setComments] = useState([]);
-	const [NumberPlate, setNumberPlate] = useState([]);
+	const [keyDown, setKeyDown] = useState(false);
 	const [snackBar, setSnackBar] = useState({
 		open: false,
 		message: "",
@@ -52,17 +53,39 @@ const NumberPlatesSearchView = () => {
 	};
 
 	return (
-		<div className={classes.root}>
-			<NumberPlatesSearch
-				clientMessage={clientMessage}
-				searchTerm={setSearchTerm}
-			/>
-			{searchTerm !== "" ? (
-				<div className={classes.content}>
-					<CommentsTable Comments={Comments} clientMessage={clientMessage} />
+		<Card
+			style={{
+				backgroundColor: "yellow",
+				margin: "0 auto",
+				height: "500px",
+			}}>
+			{keyDown ? (
+				<CommentsTable Comments={Comments} NumberPlates={searchTerm} />
+			) : (
+				<div className={classes.root}>
+					<h1 style={{ color: "black", textAlign: "center" }}>
+						<b>Enter a license plate number</b>
+					</h1>
+					<NumberPlatesSearch
+						clientMessage={clientMessage}
+						searchTerm={setSearchTerm}
+						keyDown={setKeyDown}
+					/>
+					<div style={{ marginTop: "50px" }}>
+						<div>
+							<p style={{ color: "black" }}>
+								<b>Help</b>
+							</p>
+						</div>
+						<div>
+							<p style={{ color: "black" }}>
+								<b>Meet the creators</b>
+							</p>
+						</div>
+					</div>
 				</div>
-			) : null}
-		</div>
+			)}
+		</Card>
 	);
 };
 

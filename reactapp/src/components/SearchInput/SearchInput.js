@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SearchInput = (props) => {
-	const { className, onChange, style, ...rest } = props;
+	const { className, onChange, keyDown, style, ...rest } = props;
 
 	const classes = useStyles();
 
@@ -34,6 +34,7 @@ const SearchInput = (props) => {
 		console.log(event);
 		if (event.keyCode == 13) {
 			onChange(event.target.value);
+			keyDown(true);
 		}
 	};
 
