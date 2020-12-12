@@ -40,8 +40,7 @@ namespace NumberPlates.WebApi.Business
             return await _commentRepository.GetCommentIncludeNumberPlateAsync(id);
         }
 
-        public async Task<CommentEntity> CreateCommentAsync(string comment, DateTime timestamp,
-        string ipAddress, string numberPlate) {
+        public async Task<CommentEntity> CreateCommentAsync(string comment, string numberPlate, string ipAddress) {
 
             NumberPlateEntity numberPlateEntity;
             numberPlateEntity = await _numberPlateRepository.GetNumberPlateAsync(numberPlate);
@@ -54,7 +53,7 @@ namespace NumberPlates.WebApi.Business
             var newEntity = new CommentEntity
             {
                 Comment = comment,
-                Timestamp = timestamp,
+                Timestamp = DateTime.UtcNow,
                 IpAddress = ipAddress,
                 NumberPlateId = numberPlateEntity.Id
             };

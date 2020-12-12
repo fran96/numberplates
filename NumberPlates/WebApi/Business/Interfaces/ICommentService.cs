@@ -11,6 +11,6 @@ namespace NumberPlates.WebApi.Business.Interfaces
         Task<IEnumerable<CommentEntity>> GetCommentsByNumberPlateIdAsync(int numberPlateId);
         Task<IEnumerable<CommentEntity>> GetCommentsByNumberPlateAsync(string numberPlate);
         Task<CommentEntity> GetCommentAsync(int id);
-        Task<CommentEntity> CreateCommentAsync(string comment, DateTime timestamp, string ipAddress, string numberPlate);
+        Task<CommentEntity> CreateCommentAsync(string comment, string numberPlate, string ipAddress);
     }
 }

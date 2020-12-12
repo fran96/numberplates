@@ -3,7 +3,6 @@ import { makeStyles, withStyles } from "@material-ui/styles";
 import PropTypes from "prop-types";
 import {
 	CardHeader,
-	TablePagination,
 	List,
 	ListItem,
 	ListItemText,
@@ -56,16 +55,7 @@ const CssTextField = withStyles({
 const CommentsTable = (props) => {
 	const { className, Comments, NumberPlates, clientMessage, ...rest } = props;
 	const classes = useStyles();
-	const [rowsPerPage, setRowsPerPage] = useState(10);
-	const [page, setPage] = useState(0);
 
-	const handlePageChange = (event, page) => {
-		setPage(page);
-	};
-
-	const handleRowsPerPageChange = (event) => {
-		setRowsPerPage(event.target.value);
-	};
 	return (
 		<CardContent
 			style={{
@@ -109,15 +99,6 @@ const CommentsTable = (props) => {
 						))}
 					</div>
 				) : null}
-				<TablePagination
-					component="div"
-					count={Comments.length}
-					onChangePage={handlePageChange}
-					onChangeRowsPerPage={handleRowsPerPageChange}
-					page={page}
-					rowsPerPage={rowsPerPage}
-					rowsPerPageOptions={[5, 10, 25]}
-				/>
 				<CardContent style={{ backgroundColor: "yellow", bottom: "0" }}>
 					<CssTextField
 						style={{ width: "100%" }}

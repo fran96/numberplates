@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using NumberPlates.WebApi.Business.Interfaces;
 using NumberPlates.WebApi.ViewModels.Models;
+using System.Net;
 using System;
 
 namespace NumberPlates.WebApi.Controllers
@@ -44,12 +44,16 @@ namespace NumberPlates.WebApi.Controllers
             }
 
             [HttpPost]
-            public async Task<CommentViewModel> Post(string comment, DateTime timestamp,
-            string ipAddress, string numberPlate) {
-
-                var c = await _commentService.CreateCommentAsync(comment, timestamp, ipAddress, numberPlate);
+            public async Task<CommentViewModel> Post(CommentViewModel cvM) {
+                var IPAddress = GetIPAddress();
+                var c = await _commentService.CreateCommentAsync(cvM.Comment, cvM.NumberPlate, IPAddress);
 
                 return _mapper.Map<CommentViewModel>(c);
+            }
+
+            private string GetIPAddress() {
+                var IPAddress = HttpContext.Connection.RemoteIpAddress;
+                return IPAddress.ToString();
             }
         }
     }

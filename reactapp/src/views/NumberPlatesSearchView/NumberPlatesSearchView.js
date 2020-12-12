@@ -2,13 +2,19 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/styles";
 import { CommentsTable, NumberPlatesSearch } from "./components";
 import CommentService from "../../services/CommentService";
-import Card from "@material-ui/core/Card";
+import { Card, CardActions } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
 	root: {
 		padding: theme.spacing(3),
 	},
 	content: {
 		marginTop: theme.spacing(2),
+	},
+	footer: {
+		marginTop: "50px",
+		margin: "auto",
+		width: "50%",
+		textAlign: "center",
 	},
 }));
 
@@ -57,7 +63,6 @@ const NumberPlatesSearchView = () => {
 			style={{
 				backgroundColor: "yellow",
 				margin: "0 auto",
-				height: "500px",
 			}}>
 			{keyDown ? (
 				<CommentsTable Comments={Comments} NumberPlates={searchTerm} />
@@ -71,18 +76,20 @@ const NumberPlatesSearchView = () => {
 						searchTerm={setSearchTerm}
 						keyDown={setKeyDown}
 					/>
-					<div style={{ marginTop: "50px" }}>
-						<div>
-							<p style={{ color: "black" }}>
-								<b>Help</b>
-							</p>
+					<CardActions>
+						<div className={classes.footer}>
+							<div>
+								<p style={{ color: "black" }}>
+									<b>Help</b>
+								</p>
+							</div>
+							<div>
+								<p style={{ color: "black" }}>
+									<b>Meet the creators</b>
+								</p>
+							</div>
 						</div>
-						<div>
-							<p style={{ color: "black" }}>
-								<b>Meet the creators</b>
-							</p>
-						</div>
-					</div>
+					</CardActions>
 				</div>
 			)}
 		</Card>
