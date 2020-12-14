@@ -3,79 +3,68 @@ import { makeStyles } from "@material-ui/styles";
 import { CommentsTable, NumberPlatesSearch } from "./components";
 import CommentService from "../../services/CommentService";
 import { Card, CardActions } from "@material-ui/core";
+
 const useStyles = makeStyles((theme) => ({
 	root: {
-		padding: theme.spacing(3),
-	},
-	content: {
-		marginTop: theme.spacing(2),
+		height: "100%",
+		margin: 0,
+		backgroundColor: "#ffcf4e",
+		boxShadow: "none",
 	},
 	footer: {
-		marginTop: "50px",
-		margin: "auto",
-		width: "50%",
+		[theme.breakpoints.down("xs")]: {
+			textAlign: "left",
+			marginLeft: "5px",
+		},
+		position: "fixed",
+		left: 0,
+		bottom: 0,
+		width: "100%",
 		textAlign: "center",
 	},
 }));
 
 const NumberPlatesSearchView = () => {
 	const classes = useStyles();
-	const [allComments, setAllComments] = useState([]);
 	const [Comments, setComments] = useState([]);
 	const [keyDown, setKeyDown] = useState(false);
-	const [snackBar, setSnackBar] = useState({
-		open: false,
-		message: "",
-	});
 	const [searchTerm, setSearchTerm] = useState("");
+	const commentCreated = async () => {
+		await filterCommentsByNumberPlate();
+	};
 
+	const filterCommentsByNumberPlate = async () => {
+		if (searchTerm !== "") {
+			let searchTermLower = searchTerm.toLowerCase();
+			var response = await CommentService.find(searchTermLower);
+			setComments(response.data);
+		}
+	};
 	useEffect(() => {
-		fetchComments();
-
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
-	useEffect(() => {
-		const filterCommentsByNumberPlate = async () => {
-			if (searchTerm !== "") {
-				let searchTermLower = searchTerm.toLowerCase();
-				var response = await CommentService.find(searchTermLower);
-				setComments(response.data);
-			}
-		};
 		filterCommentsByNumberPlate();
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [allComments, searchTerm]);
-
-	const fetchComments = async () => {
-		var CommentsResponse = await CommentService.getAll();
-		setAllComments(CommentsResponse.data);
-	};
-
-	const clientMessage = async (message) => {
-		setSnackBar({ open: true, message: message });
-		await fetchComments();
-	};
+	}, [searchTerm]);
 
 	return (
-		<Card
-			style={{
-				backgroundColor: "yellow",
-				margin: "0 auto",
-			}}>
+		<Card className={classes.root}>
 			{keyDown ? (
-				<CommentsTable Comments={Comments} NumberPlates={searchTerm} />
+				<CommentsTable
+					commentCreated={commentCreated}
+					Comments={Comments}
+					NumberPlates={searchTerm}
+				/>
 			) : (
-				<div className={classes.root}>
-					<h1 style={{ color: "black", textAlign: "center" }}>
+				<div>
+					<h1
+						style={{
+							color: "black",
+							textAlign: "center",
+							marginTop: "30px",
+						}}>
 						<b>Enter a license plate number</b>
 					</h1>
-					<NumberPlatesSearch
-						clientMessage={clientMessage}
-						searchTerm={setSearchTerm}
-						keyDown={setKeyDown}
-					/>
+					<NumberPlatesSearch searchTerm={setSearchTerm} keyDown={setKeyDown} />
 					<CardActions>
 						<div className={classes.footer}>
 							<div>

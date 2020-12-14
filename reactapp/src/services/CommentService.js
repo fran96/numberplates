@@ -10,7 +10,13 @@ const find = (numberPlate) => {
 	return http.get(url);
 };
 
+const create = (data) => {
+	console.log(data);
+	return http.post("/Comment", data);
+};
+
 export default {
 	getAll,
 	find,
+	create,
 };

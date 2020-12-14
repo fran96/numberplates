@@ -5,9 +5,7 @@ import { makeStyles } from "@material-ui/styles";
 import { Typography, Link } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-	root: {
-		padding: theme.spacing(4),
-	},
+	root: {},
 	footer: {
 		bottom: 0,
 		position: "fixed",

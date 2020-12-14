@@ -26,7 +26,7 @@ const service = axios.create({
 	baseURL: process.env.REACT_APP_API_BASE_URL,
 	headers: {
 		Accept: "application/json",
-		"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+		"Content-Type": "application/json",
 	},
 });
 service.interceptors.response.use(handleSuccess, handleError);

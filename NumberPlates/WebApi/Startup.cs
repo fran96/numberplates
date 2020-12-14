@@ -78,6 +78,7 @@ namespace NumberPlates.WebApi
                     builder =>
                     {
                         builder.WithOrigins("http://localhost:3000");
+                        builder.AllowAnyHeader();
                     });
             });
         }

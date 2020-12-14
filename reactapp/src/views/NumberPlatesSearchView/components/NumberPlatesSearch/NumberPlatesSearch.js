@@ -10,7 +10,11 @@ const useStyles = makeStyles((theme) => ({
 		height: "42px",
 		display: "flex",
 		alignItems: "center",
-		marginTop: theme.spacing(1),
+		marginTop: "5%",
+		[theme.breakpoints.down("xs")]: {
+			width: "70%",
+			margin: "0 auto",
+		},
 	},
 	spacer: {
 		flexGrow: 1,
@@ -22,12 +26,19 @@ const useStyles = makeStyles((theme) => ({
 		marginRight: theme.spacing(1),
 	},
 	searchInput: {
-		marginRight: theme.spacing(1),
+		margin: "0 auto",
 	},
 }));
 
 const NumberPlatesSearch = (props) => {
-	const { className, clientMessage, searchTerm, keyDown, ...rest } = props;
+	const {
+		className,
+		clientMessage,
+		searchTerm,
+		keyDown,
+		helperText,
+		...rest
+	} = props;
 
 	const classes = useStyles();
 
@@ -38,7 +49,6 @@ const NumberPlatesSearch = (props) => {
 			</div>
 			<div className={classes.row}>
 				<SearchInput
-					style={{ margin: "0 auto" }}
 					className={classes.searchInput}
 					placeholder="Enter Number plate"
 					onChange={searchTerm}

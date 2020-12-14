@@ -31,8 +31,7 @@ const SearchInput = (props) => {
 	const classes = useStyles();
 
 	const search = (event) => {
-		console.log(event);
-		if (event.keyCode == 13) {
+		if (event.keyCode === 13) {
 			onChange(event.target.value);
 			keyDown(true);
 		}

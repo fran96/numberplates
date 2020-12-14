@@ -8,14 +8,14 @@ import { Footer } from "./components";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		paddingTop: 56,
-		height: "100%",
+		// paddingTop: 56,
+		// height: "100%",
 		[theme.breakpoints.up("sm")]: {
-			paddingTop: 64,
+			// paddingTop: 64,
 		},
 	},
 	content: {
-		height: "100%",
+		//height: "100%",
 	},
 }));
 
@@ -33,10 +33,7 @@ const Main = (props) => {
 			className={clsx({
 				[classes.root]: true,
 			})}>
-			<main className={classes.content}>
-				{children}
-				<Footer />
-			</main>
+			<main className={classes.content}>{children}</main>
 		</div>
 	);
 };
