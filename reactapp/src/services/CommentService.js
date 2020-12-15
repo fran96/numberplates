@@ -11,7 +11,6 @@ const find = (numberPlate) => {
 };
 
 const create = (data) => {
-	console.log(data);
 	return http.post("/Comment", data);
 };
 

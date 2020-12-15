@@ -15,6 +15,7 @@ import {
 	TextField,
 	Badge,
 } from "@material-ui/core";
+import { useLocation } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -78,7 +79,8 @@ const CssTextField = withStyles({
 })(TextField);
 
 const CommentsTable = (props) => {
-	const { className, Comments, NumberPlates, commentCreated, ...rest } = props;
+	const { className, ...rest } = props;
+	const location = useLocation();
 	const classes = useStyles();
 	const [writeCommentClicked, setWriteCommentClicked] = useState(false);
 	const initialCommentState = {
@@ -86,13 +88,64 @@ const CommentsTable = (props) => {
 		numberPlate: "",
 	};
 	const [comment, setComment] = useState(initialCommentState);
+	const [comments, setComments] = useState([]);
+	const [searchTerm, setSearchTerm] = useState("");
+
+	const commentCreated = async () => {
+		await filterCommentsByNumberPlate();
+	};
+
+	let today = new Date();
+	const getTimeDifferenceString = (timestamp) => {
+		console.log(today);
+		var timestampDate = new Date(timestamp);
+
+		console.log(timestampDate);
+		var difference = today - timestampDate;
+		var daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
+
+		console.log(daysDifference);
+		switch (true) {
+			case daysDifference == 0:
+				return "today";
+			case daysDifference <= 7:
+				return "this week";
+			case daysDifference <= 30:
+				return "this month";
+			case daysDifference <= 365:
+				return "this year";
+			default:
+				return "a while ago";
+		}
+	};
+	const filterCommentsByNumberPlate = async () => {
+		if (searchTerm !== "") {
+			let searchTermLower = searchTerm.toLowerCase();
+			var response = await CommentService.find(searchTermLower);
+			setComments(response.data);
+		}
+	};
+	useEffect(() => {
+		filterCommentsByNumberPlate();
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [searchTerm]);
+
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
 		setComment({ ...comment, [name]: value });
 	};
 
+	const handleSubmit = (event) => {
+		if (event.keyCode === 13) {
+			event.preventDefault();
+
+			comment.numberPlate = searchTerm;
+			CreateComment(comment);
+		}
+	};
+
 	const CreateComment = async (data) => {
-		console.log(comment);
 		try {
 			await CommentService.create(data);
 			commentCreated();
@@ -102,14 +155,9 @@ const CommentsTable = (props) => {
 		}
 	};
 
-	const handleSubmit = (event) => {
-		if (event.keyCode === 13) {
-			event.preventDefault();
-
-			comment.numberPlate = NumberPlates;
-			CreateComment(comment);
-		}
-	};
+	useEffect(() => {
+		setSearchTerm(location.state.searchTerm);
+	}, [location]);
 
 	const browserHistory = createBrowserHistory();
 	return (
@@ -127,23 +175,23 @@ const CommentsTable = (props) => {
 								style={{ marginRight: "20px" }}
 								variant="contained"
 								onClick={browserHistory.goBack}></ArrowBackIcon>
-							{NumberPlates}
+							{location.state.searchTerm}
 						</Badge>
 					}
 				/>
 				<div className={classes.commentsContainer}>
-					{Comments.length > 0 ? (
+					{comments.length > 0 ? (
 						<div>
 							<List className={classes.listStyle}>
 								<div>
 									<h6 style={{ marginLeft: "5px" }}>
-										{Comments.length > 1
-											? `${Comments.length} comments`
-											: `${Comments.length} comment`}
+										{comments.length > 1
+											? `${comments.length} comments`
+											: `${comments.length} comment`}
 									</h6>
 								</div>
 
-								{Comments.map((c) => (
+								{comments.map((c) => (
 									<div key={c.id}>
 										<ListItem className={classes.root} alignItems="flex-start">
 											<ListItemText primary={c.comment} />
@@ -159,7 +207,7 @@ const CommentsTable = (props) => {
 														className={classes.inline}
 														color="textPrimary"
 													/>
-													{c.timestamp.split("T")[0]}
+													{getTimeDifferenceString(c.timestamp)}
 												</React.Fragment>
 											}
 										/>
