@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles, withStyles } from "@material-ui/styles";
 import PropTypes from "prop-types";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import CommentService from "../../../../services/CommentService";
+import { createBrowserHistory } from "history";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import {
 	CardHeader,
 	List,
@@ -11,6 +13,7 @@ import {
 	Typography,
 	CardContent,
 	TextField,
+	Badge,
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -24,7 +27,16 @@ const useStyles = makeStyles((theme) => ({
 		display: "inline",
 	},
 	content: {
-		padding: "5px",
+		paddingLeft: "5px",
+		paddingTop: "0px",
+	},
+	listStyle: {
+		paddingTop: "4%",
+		marginBottom: "6%",
+		[theme.breakpoints.down("xs")]: {
+			marginBottom: "20%",
+			marginTop: "20%",
+		},
 	},
 	commentField: {
 		height: "500px",
@@ -44,13 +56,8 @@ const useStyles = makeStyles((theme) => ({
 		zIndex: "100",
 	},
 	commentsContainer: {
-		marginTop: "60px",
 		backgroundColor: "white",
 		minHeight: "500px",
-		[theme.breakpoints.down("xs")]: {
-			marginBottom: "20%",
-			marginTop: "20%",
-		},
 	},
 }));
 
@@ -79,12 +86,6 @@ const CommentsTable = (props) => {
 		numberPlate: "",
 	};
 	const [comment, setComment] = useState(initialCommentState);
-	const toggleClass = () => {
-		setWriteCommentClicked({
-			writeCommentClicked: !writeCommentClicked,
-		});
-	};
-
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
 		setComment({ ...comment, [name]: value });
@@ -95,6 +96,7 @@ const CommentsTable = (props) => {
 		try {
 			await CommentService.create(data);
 			commentCreated();
+			setComment({ ...comment, ["comment"]: "" });
 		} catch {
 			console.log("Error");
 		}
@@ -109,28 +111,38 @@ const CommentsTable = (props) => {
 		}
 	};
 
+	const browserHistory = createBrowserHistory();
 	return (
 		<CardContent
 			style={{
 				padding: "0px",
 			}}>
-			<CardHeader
-				className={classes.fixedHeader}
-				variant="text"
-				title={NumberPlates}
-			/>
-
 			<PerfectScrollbar>
+				<CardHeader
+					className={classes.fixedHeader}
+					variant="text"
+					title={
+						<Badge style={{ fontWeight: "bold" }}>
+							<ArrowBackIcon
+								style={{ marginRight: "20px" }}
+								variant="contained"
+								onClick={browserHistory.goBack}></ArrowBackIcon>
+							{NumberPlates}
+						</Badge>
+					}
+				/>
 				<div className={classes.commentsContainer}>
 					{Comments.length > 0 ? (
-						<div className={classes.content}>
-							<h6 style={{ marginLeft: "5px" }}>
-								{Comments.length > 1
-									? `${Comments.length} comments`
-									: `${Comments.length} comment`}
-							</h6>
+						<div>
+							<List className={classes.listStyle}>
+								<div>
+									<h6 style={{ marginLeft: "5px" }}>
+										{Comments.length > 1
+											? `${Comments.length} comments`
+											: `${Comments.length} comment`}
+									</h6>
+								</div>
 
-							<List className={classes.content}>
 								{Comments.map((c) => (
 									<div key={c.id}>
 										<ListItem className={classes.root} alignItems="flex-start">
