@@ -14,6 +14,7 @@ import {
 	CardContent,
 	TextField,
 	Badge,
+	Tooltip,
 } from "@material-ui/core";
 import { useLocation } from "react-router-dom";
 
@@ -58,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	commentsContainer: {
 		backgroundColor: "white",
-		minHeight: "500px",
+		minHeight: "800px",
 	},
 }));
 
@@ -122,6 +123,8 @@ const CommentsTable = (props) => {
 		if (searchTerm !== "") {
 			let searchTermLower = searchTerm.toLowerCase();
 			var response = await CommentService.find(searchTermLower);
+			var sortedResponse = response.data.sort(compareNumbers);
+			console.log(sortedResponse);
 			setComments(response.data);
 		}
 	};
@@ -154,6 +157,12 @@ const CommentsTable = (props) => {
 			console.log("Error");
 		}
 	};
+
+	function compareNumbers(a, b) {
+		var aDate = new Date(a.timestamp);
+		var bDate = new Date(b.timestamp);
+		return bDate - aDate;
+	}
 
 	useEffect(() => {
 		setSearchTerm(location.state.searchTerm);
@@ -197,20 +206,25 @@ const CommentsTable = (props) => {
 											<ListItemText primary={c.comment} />
 										</ListItem>
 
-										<ListItemText
-											style={{ marginLeft: "10px" }}
-											secondary={
-												<React.Fragment>
-													<Typography
-														component="span"
-														variant="body2"
-														className={classes.inline}
-														color="textPrimary"
-													/>
-													{getTimeDifferenceString(c.timestamp)}
-												</React.Fragment>
-											}
-										/>
+										<Tooltip
+											title={c.timestamp.split("T")[0]}
+											placement="bottom-start"
+											enterDelay={600}>
+											<ListItemText
+												style={{ marginLeft: "10px" }}
+												secondary={
+													<React.Fragment>
+														<Typography
+															component="span"
+															variant="body2"
+															className={classes.inline}
+															color="textPrimary"
+														/>
+														{getTimeDifferenceString(c.timestamp)}
+													</React.Fragment>
+												}
+											/>
+										</Tooltip>
 									</div>
 								))}
 							</List>

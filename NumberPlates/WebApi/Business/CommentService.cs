@@ -33,7 +33,7 @@ namespace NumberPlates.WebApi.Business
         }
 
         public async Task<IEnumerable<CommentEntity>> GetCommentsByNumberPlateAsync(string numberPlate) {
-           return await _commentRepository.GetCommentsByNumberPlateAsync(numberPlate);
+           return await _commentRepository.GetCommentsByNumberPlateAsync(numberPlate.ToLower());
         }
 
         public async  Task<CommentEntity> GetCommentAsync(int id) {
@@ -42,6 +42,7 @@ namespace NumberPlates.WebApi.Business
 
         public async Task<CommentEntity> CreateCommentAsync(string comment, string numberPlate, string ipAddress) {
 
+            numberPlate=numberPlate.ToLower();
             NumberPlateEntity numberPlateEntity;
             numberPlateEntity = await _numberPlateRepository.GetNumberPlateAsync(numberPlate);
             if (numberPlateEntity == null)

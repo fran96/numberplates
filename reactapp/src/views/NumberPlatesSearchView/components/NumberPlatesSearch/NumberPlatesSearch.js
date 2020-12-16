@@ -31,14 +31,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NumberPlatesSearch = (props) => {
-	const {
-		className,
-		clientMessage,
-		searchTerm,
-		keyDown,
-		helperText,
-		...rest
-	} = props;
+	const { className, clientMessage, searchTerm, keyDown, ...rest } = props;
 
 	const classes = useStyles();
 

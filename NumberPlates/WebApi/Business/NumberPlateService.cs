@@ -33,13 +33,13 @@ namespace NumberPlates.WebApi.Business
 
         public async Task<NumberPlateEntity> GetNumberPlateAsync(string numberPlate)
         {
-            return await _numberPlateRepository.GetNumberPlateAsync(numberPlate);
+            return await _numberPlateRepository.GetNumberPlateAsync(numberPlate.ToLower());
         }
 
         public async Task<NumberPlateEntity> CreateNumberPlateAsync(string numberPlate) {
             var newEntity = new NumberPlateEntity
             {
-                NumberPlate = numberPlate
+                NumberPlate = numberPlate.ToLower()
             };
             await _numberPlateRepository.CreateAsync(newEntity);
             return newEntity;
@@ -51,7 +51,7 @@ namespace NumberPlates.WebApi.Business
                 throw new ValidationException("NumberPlate does not exist.");
             }
 
-            updateEntity.NumberPlate = numberPlate;
+            updateEntity.NumberPlate = numberPlate.ToLower();
             await _numberPlateRepository.UpdateAsync(updateEntity);
 
             return updateEntity;

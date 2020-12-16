@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/styles";
-import { Paper, Input } from "@material-ui/core";
+import { Paper, Input, TextField } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
+
+import InputBase from "@material-ui/core/InputBase";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -27,25 +29,35 @@ const useStyles = makeStyles((theme) => ({
 
 const SearchInput = (props) => {
 	const { className, onChange, keyDown, style, ...rest } = props;
-
 	const classes = useStyles();
-
+	const numberPlateRegex = /^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/;
+	// /^[+]?\d+([.]\d+)?$/;
+	const [errorText, setErrorText] = useState("");
 	const search = (event) => {
 		if (event.keyCode === 13) {
-			onChange(event.target.value);
-			keyDown(true);
+			console.log(event.target.value);
+			if (event.target.value.match(numberPlateRegex)) {
+				setErrorText("");
+
+				onChange(event.target.value);
+				keyDown(true);
+			} else {
+				setErrorText("Please enter a valid number plate format.");
+			}
 		}
 	};
 
 	return (
 		<Paper {...rest} className={clsx(classes.root, className)} style={style}>
 			<SearchIcon className={classes.icon} />
-			<Input
+			<TextField
 				{...rest}
 				onKeyDown={search}
 				id="searchInput"
 				className={classes.input}
-				disableUnderline
+				error
+				InputProps={{ disableUnderline: true }}
+				helperText={errorText != "" ? errorText : ""}
 			/>
 		</Paper>
 	);

@@ -33,7 +33,7 @@ namespace NumberPlates.Data.Repositories
         {
             return await Entities.Set<CommentEntity>()
                 .Include(comment => comment.NumberPlate)
-                .Where(comment => comment.NumberPlate.NumberPlate.ToLower() == numberPlate.ToLower())
+                .Where(comment => comment.NumberPlate.NumberPlate == numberPlate.ToLower())
                 .ToListAsync();
         }
 

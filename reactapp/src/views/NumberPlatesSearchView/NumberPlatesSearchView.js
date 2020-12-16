@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/styles";
-import { CommentsTable, NumberPlatesSearch } from "./components";
-import CommentService from "../../services/CommentService";
+import { NumberPlatesSearch } from "./components";
 import { Card, CardActions } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 
