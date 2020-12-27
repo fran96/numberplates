@@ -21,7 +21,7 @@ const Footer = (props) => {
 		<div {...rest} className={clsx(classes.root, className)}>
 			<Typography variant="body1" className={classes.footer}>
 				&copy;{" "}
-				<Link component="a" href="https://localhost:3000/" target="_blank">
+				<Link component="a" href="/" target="_blank">
 					Number plates
 				</Link>
 				. 2020

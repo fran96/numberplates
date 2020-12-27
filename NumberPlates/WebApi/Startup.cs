@@ -72,15 +72,15 @@ namespace NumberPlates.WebApi
             var mappingConfig = new MapperConfiguration(mc => { mc.AddProfile(new EntitiesToViewModels()); });
 
             services.AddAutoMapper(typeof(NumberPlates.WebApi.ViewModels.Mappings.Configurations.EntitiesToViewModels));
-            services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(
-                    builder =>
-                    {
-                        builder.WithOrigins("http://localhost:3000");
-                        builder.AllowAnyHeader();
-                    });
-            });
+            // services.AddCors(options =>
+            // {
+            //     options.AddDefaultPolicy(
+            //         builder =>
+            //         {
+            //             builder.WithOrigins("http://localhost:3000");
+            //             builder.AllowAnyHeader();
+            //         });
+            // });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
