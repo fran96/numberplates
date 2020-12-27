@@ -11,7 +11,8 @@ resources:
 variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '578ccb73-c120-4e25-a9ee-508a1b5ad4a7'
-  imageRepository: 'numberplates'
+  webapiImageRepository: 'numberplates-webapi'
+  frontEndImageRepository: 'numberplates-frontend'
   containerRegistry: 'zvoga.azurecr.io'
   webapiDockerfilePath: '$(Build.SourcesDirectory)/NumberPlates/Dockerfile'
   frontendDockerfilePath: '$(Build.SourcesDirectory)/reactapp/Dockerfile'
@@ -33,7 +34,7 @@ stages:
       displayName: WebApi- Build and push an image to container registry
       inputs:
         command: buildAndPush
-        repository: $(imageRepository)
+        repository: $(webapiImageRepository)
         dockerfile: $(webapiDockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
@@ -42,7 +43,7 @@ stages:
       displayName: Frontend- Build and push an image to container registry
       inputs:
         command: buildAndPush
-        repository: $(imageRepository)
+        repository: $(frontEndImageRepository)
         dockerfile: $(frontendDockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
