@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/styles";
 import { NumberPlatesSearch } from "./components";
-import { Card, CardActions } from "@material-ui/core";
+import { Grid, Paper, CssBaseline, Container } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		height: "100%",
-		margin: 0,
-		backgroundColor: "#ffcf4e",
+		flexGrow: 1,
+	},
+	paper: {
+		padding: theme.spacing(2),
+		textAlign: 'center',
 		boxShadow: "none",
+		backgroundColor: "transparent"
 	},
 	footer: {
 		[theme.breakpoints.down("xs")]: {
@@ -22,6 +25,14 @@ const useStyles = makeStyles((theme) => ({
 		width: "100%",
 		textAlign: "center",
 	},
+	text: {
+		fontFamily: " Gilroy-Medium",
+		fontSize: "18px",
+		lineHeight: "21px",
+		letterSpacing: "0em",
+		textAlign: "right"
+
+	}
 }));
 
 const NumberPlatesSearchView = () => {
@@ -42,34 +53,53 @@ const NumberPlatesSearchView = () => {
 		}
 	}, [keyDown]);
 	return (
-		<Card className={classes.root}>
-			<div>
-				<h1
-					style={{
-						color: "black",
-						textAlign: "center",
-						marginTop: "30px",
-					}}>
-					<b>Enter a license plate number</b>
-				</h1>
-				<NumberPlatesSearch searchTerm={setSearchTerm} keyDown={setKeyDown} />
-				<CardActions>
-					<div className={classes.footer}>
-						<div>
-							<p style={{ color: "black" }}>
-								<b>Help</b>
-							</p>
-						</div>
-						<div>
-							<p style={{ color: "black" }}>
-								<b>Meet the creators</b>
-							</p>
-						</div>
-					</div>
-				</CardActions>
-			</div>
-		</Card>
+		<div className={classes.root}>
+
+			<React.Fragment>
+				<CssBaseline />
+				<div style={{
+					height: "100px",
+					width: "800px",
+					left: "nullpx",
+					top: "nullpx",
+					borderRadius: "0px"
+				}}></div>
+				<Container maxWidth="sm">
+					<Grid container spacing={3} alignItems="center" style={{ backgroundColor: '#FFCF4D;', border: "6px solid black", minHeight: '70vh' }}
+						justify="center">
+						<Grid item xs={12}>
+							<Paper className={classes.paper}><img alt="Zvoga" src="/images/zvoga.png" width="179px" height="46px"></img></Paper>
+						</Grid>
+						<Grid item xs={6}>
+							<Paper className={classes.paper}>
+								<div className={classes.text}>The new way to comment on<br />other people's driving!</div></Paper>
+						</Grid>
+						<Grid item xs={6}>
+							<Paper className={classes.paper}><img alt="Zvoga" src="/images/car-accident.png" width="83px" height="58px" /></Paper>
+						</Grid>
+						<Grid item xs={3}>
+							<div className={classes.text}>
+								Enter a license plate <br /> number to view and post <br /> comments:
+							</div>
+						</Grid>
+						<Grid item xs={3}>
+							<NumberPlatesSearch searchTerm={setSearchTerm} keyDown={setKeyDown} /></Grid>
+						<Grid item >
+							<div className={classes.footer}>
+								<div>
+									<p style={{ color: "black" }}>
+										<b>Meet the creators</b>
+									</p>
+								</div>
+							</div>
+						</Grid>
+					</Grid>
+				</Container>
+			</React.Fragment>
+
+		</div>
 	);
 };
 
 export default NumberPlatesSearchView;
+

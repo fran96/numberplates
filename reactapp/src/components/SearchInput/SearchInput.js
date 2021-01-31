@@ -5,7 +5,6 @@ import { makeStyles } from "@material-ui/styles";
 import { Paper, Input, TextField } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 
-import InputBase from "@material-ui/core/InputBase";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -70,3 +69,4 @@ SearchInput.propTypes = {
 };
 
 export default SearchInput;
+

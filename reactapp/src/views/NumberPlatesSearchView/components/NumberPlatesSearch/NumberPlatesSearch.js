@@ -7,12 +7,11 @@ import { SearchInput } from "../../../../components";
 const useStyles = makeStyles((theme) => ({
 	root: {},
 	row: {
-		height: "42px",
+		height: "60px",
 		display: "flex",
 		alignItems: "center",
-		marginTop: "5%",
 		[theme.breakpoints.down("xs")]: {
-			width: "70%",
+			width: "50%",
 			margin: "0 auto",
 		},
 	},
@@ -43,7 +42,7 @@ const NumberPlatesSearch = (props) => {
 			<div className={classes.row}>
 				<SearchInput
 					className={classes.searchInput}
-					placeholder="Enter Number plate"
+					placeholder=""
 					onChange={searchTerm}
 					keyDown={keyDown}
 				/>
@@ -57,3 +56,4 @@ NumberPlatesSearch.propTypes = {
 };
 
 export default NumberPlatesSearch;
+
