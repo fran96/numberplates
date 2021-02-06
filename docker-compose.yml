@@ -6,7 +6,7 @@ services:
     image: postgres
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-Hello123!}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-xxx}
       PGDATA: /data/postgres
     volumes:
       - postgres:/data/postgres
@@ -17,11 +17,11 @@ services:
     restart: unless-stopped
 
   pgadmin:
-    container_name: pgadmin-compose-np
+    container_name: pgadmin-compose
     image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-user@domain.com}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-Hello123!}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-xxx}
     volumes:
       - pgadmin:/root/.pgadmin
     ports:
@@ -31,7 +31,7 @@ services:
     restart: unless-stopped
     depends_on:
       - postgres
-  
+
   zvoga-be:
     container_name: zvoga-be-compose
     image: bencami/zvoga-be
@@ -40,24 +40,34 @@ services:
     networks:
       - network-compose
     restart: unless-stopped
-
+    environment:
+      - CONNECTIONSTRINGS__NPDATABASE=Host=postgres;Username=postgres;Password=xxx;Database=Numberplates
+      - IsProduction=true
   zvoga-fe:
     container_name: zvoga-fe-compose
     image: bencami/zvoga-fe
     ports:
-      - "3000:80"
+      - "3000:3000"
     networks:
       - network-compose
     restart: unless-stopped
+    environment:
+      - REACT_APP_API_BASE_URL=https://api.zvoga.com
 
-  nginx: 
+  nginx:
     image: nginx:latest
     container_name: nginx-compose
     volumes:
-      - ./etc/nginx.conf:/etc/nginx/nginx.conf
+      - /etc/nginx.conf:/etc/nginx/nginx.conf
+      - /etc/letsencrypt:/etc/letsencrypt
     ports:
       - 80:80
       - 443:443
+    depends_on:
+      - zvoga-fe
+      - zvoga-be
+    networks:
+      - network-compose
 
 networks:
   network-compose:

@@ -41,14 +41,17 @@ namespace NumberPlates.WebApi
                 .AddNewtonsoftJson(x =>
                     x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
-            services.AddSwaggerGen(c =>
+            if (bool.TryParse(Configuration["IsProduction"], out var isProduction) && !isProduction)
             {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "Numberplates", Version = "v1"});
-            });
+                services.AddSwaggerGen(c =>
+                {
+                    c.SwaggerDoc("v1", new OpenApiInfo {Title = "Numberplates", Version = "v1"});
+                });
+            }
 
             var connectionString = Configuration.GetConnectionString("NPDatabase");
             services.AddDbContext<NumberPlateDbContext>(options => { options.UseNpgsql(connectionString); });
-            
+
             services
                 .AddHealthChecks()
                 .AddNpgSql(connectionString);
