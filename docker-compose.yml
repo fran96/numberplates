@@ -42,7 +42,7 @@ services:
     restart: unless-stopped
     environment:
       - CONNECTIONSTRINGS__NPDATABASE=Host=postgres;Username=postgres;Password=xxx;Database=Numberplates
-      - IsProduction=true
+      - ASPNETCORE_ENVIRONMENT=Production
   zvoga-fe:
     container_name: zvoga-fe-compose
     image: bencami/zvoga-fe

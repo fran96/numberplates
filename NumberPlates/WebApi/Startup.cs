@@ -40,15 +40,12 @@ namespace NumberPlates.WebApi
             services.AddControllers()
                 .AddNewtonsoftJson(x =>
                     x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-
-            if (bool.TryParse(Configuration["IsProduction"], out var isProduction) && !isProduction)
-            {
+            
                 services.AddSwaggerGen(c =>
                 {
                     c.SwaggerDoc("v1", new OpenApiInfo {Title = "Numberplates", Version = "v1"});
                 });
-            }
-
+                
             var connectionString = Configuration.GetConnectionString("NPDatabase");
             services.AddDbContext<NumberPlateDbContext>(options => { options.UseNpgsql(connectionString); });
 
@@ -88,13 +85,15 @@ namespace NumberPlates.WebApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseSwagger();
+            if (env.IsDevelopment()){
+                app.UseSwagger();
 
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
-            // specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Number plate docs"); });
+                // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+                // specifying the Swagger JSON endpoint.
+                app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Number plate docs"); });
 
-            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage();
+            }
 
             app.UseRouting();
 
