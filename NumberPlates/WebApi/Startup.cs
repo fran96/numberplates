@@ -40,19 +40,18 @@ namespace NumberPlates.WebApi
             services.AddControllers()
                 .AddNewtonsoftJson(x =>
                     x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-            ;
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Numberplates", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo {Title = "Numberplates", Version = "v1"});
             });
 
             var connectionString = Configuration.GetConnectionString("NPDatabase");
-            services.AddDbContext<NumberPlateDbContext>(options =>
-            {
-                options.UseNpgsql(connectionString);
-            });
-
+            services.AddDbContext<NumberPlateDbContext>(options => { options.UseNpgsql(connectionString); });
+            
+            services
+                .AddHealthChecks()
+                .AddNpgSql(connectionString);
 
             //----- Business / Services-----
 
@@ -97,7 +96,11 @@ namespace NumberPlates.WebApi
             app.UseRouting();
 
             app.UseCors();
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                endpoints.MapHealthChecks("/health");
+            });
         }
     }
 }
