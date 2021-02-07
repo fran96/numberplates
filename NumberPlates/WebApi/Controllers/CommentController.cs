@@ -4,56 +4,66 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using NumberPlates.WebApi.Business.Interfaces;
 using NumberPlates.WebApi.ViewModels.Models;
-using System.Net;
-using System;
 
 namespace NumberPlates.WebApi.Controllers
 {
-        [ApiController]
-        [Route("[controller]")]
-        public class CommentController : ControllerBase
+    [ApiController]
+    [Route("[controller]")]
+    public class CommentController : ControllerBase
+    {
+        private readonly ICommentService _commentService;
+        private readonly IMapper _mapper;
+
+        public CommentController(ICommentService commentService, IMapper mapper)
         {
-            private readonly ICommentService _commentService;
-            private readonly IMapper _mapper;
+            _commentService = commentService;
+            _mapper = mapper;
+        }
 
-            public CommentController(ICommentService commentService, IMapper mapper)
+        [HttpGet]
+        public async Task<IEnumerable<CommentViewModel>> GetAll()
+        {
+            var comments = await _commentService.GetAllCommentsAsync();
+            return _mapper.Map<IEnumerable<CommentViewModel>>(comments);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<CommentViewModel> Get(int id)
+        {
+            var comment = await _commentService.GetCommentAsync(id);
+            return _mapper.Map<CommentViewModel>(comment);
+        }
+
+        [HttpGet("/getCommentsByNumberPlate")]
+        public async Task<IActionResult> GetCommentsByNumberPlate(string numberPlate)
+        {
+            if (string.IsNullOrWhiteSpace(numberPlate))
             {
-                _commentService = commentService;
-                _mapper = mapper;
+                return BadRequest();
             }
 
-            [HttpGet]
-            public async Task<IEnumerable<CommentViewModel>> GetAll()
+            var comments = await _commentService.GetCommentsByNumberPlateAsync(numberPlate);
+            return Ok(_mapper.Map<IEnumerable<CommentViewModel>>(comments));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post(CommentViewModel model)
+        {
+            if (string.IsNullOrWhiteSpace(model.NumberPlate) || string.IsNullOrWhiteSpace(model.Comment))
             {
-                var comments = await _commentService.GetAllCommentsAsync();
-                return _mapper.Map<IEnumerable<CommentViewModel>>(comments);
+                return BadRequest();
             }
 
-            [HttpGet("{id}")]
-            public async Task<CommentViewModel> Get(int id)
-            {
-                var comment = await _commentService.GetCommentAsync(id);
-                return _mapper.Map<CommentViewModel>(comment);
-            }
+            var ipAddress = GetIpAddress();
+            var comment = await _commentService.CreateCommentAsync(model.Comment, model.NumberPlate, ipAddress);
 
-            [HttpGet("/getCommentsByNumberPlate")]
-            public async Task<IEnumerable<CommentViewModel>> GetCommentsByNumberPlate(string numberPlate)
-            {
-                var comments = await _commentService.GetCommentsByNumberPlateAsync(numberPlate);
-                return _mapper.Map<IEnumerable<CommentViewModel>>(comments);
-            }
+            return Ok(_mapper.Map<CommentViewModel>(comment));
+        }
 
-            [HttpPost]
-            public async Task<CommentViewModel> Post(CommentViewModel cvM) {
-                var IPAddress = GetIPAddress();
-                var c = await _commentService.CreateCommentAsync(cvM.Comment, cvM.NumberPlate, IPAddress);
-
-                return _mapper.Map<CommentViewModel>(c);
-            }
-
-            private string GetIPAddress() {
-                var IPAddress = HttpContext.Connection.RemoteIpAddress;
-                return IPAddress.ToString();
-            }
+        private string GetIpAddress()
+        {
+            var ipAddress = HttpContext.Connection.RemoteIpAddress;
+            return ipAddress?.ToString();
         }
     }
+}
