@@ -62,8 +62,11 @@ namespace NumberPlates.WebApi.Controllers
 
         private string GetIpAddress()
         {
-            var ipAddress = HttpContext.Connection.RemoteIpAddress;
-            return ipAddress?.ToString();
+            if (HttpContext.Request.Headers.TryGetValue("X-Forwarded-For", out var ipAddress))
+            {
+                return ipAddress;
+            }
+            return "";
         }
     }
 }
