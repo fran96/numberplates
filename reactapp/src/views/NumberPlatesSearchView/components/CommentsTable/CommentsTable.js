@@ -93,7 +93,8 @@ const CommentsTable = (props) => {
     numberPlate: "",
   };
   const [comment, setComment] = useState(initialCommentState);
-  const [comments, setComments] = useState([]);
+  const [showLoading, setShowLoading] = useState(false);
+  const [comments, setComments] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
   const commentCreated = async () => {
@@ -102,14 +103,11 @@ const CommentsTable = (props) => {
 
   let today = new Date();
   const getTimeDifferenceString = (timestamp) => {
-    console.log(today);
     var timestampDate = new Date(timestamp);
 
-    console.log(timestampDate);
     var difference = today - timestampDate;
     var daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
 
-    console.log(daysDifference);
     switch (true) {
       case daysDifference == 0:
         return "today";
@@ -127,8 +125,12 @@ const CommentsTable = (props) => {
     if (searchTerm !== "") {
       let searchTermLower = searchTerm.toLowerCase();
       var response = await CommentService.find(searchTermLower);
+      if (response == null) {
+        setTimeout(() => setShowLoading(true), 500);
+        return;
+      }
+
       var sortedResponse = response.data.sort(compareNumbers);
-      console.log(sortedResponse);
       setComments(response.data);
     }
   };
@@ -194,7 +196,7 @@ const CommentsTable = (props) => {
           }
         />
         <div className={classes.commentsContainer}>
-          {comments.length > 0 ? (
+          {comments != null && comments.length > 0 ? (
             <List className={classes.listStyle}>
               <div>
                 <h6 style={{ marginLeft: "5px" }}>
@@ -233,11 +235,11 @@ const CommentsTable = (props) => {
                 </div>
               ))}
             </List>
-          ) : (
+          ) : comments == null && showLoading ? (
             <div>
               <img
-                alt="Add Message"
-                src="/images/add-message.svg"
+                alt="Loading"
+                src="/images/loading.svg"
                 style={{
                   position: "absolute",
                   width: "96px",
@@ -247,19 +249,36 @@ const CommentsTable = (props) => {
                   marginLeft: "-47px",
                 }}
               ></img>
-              <Typography
-                className={classes.text}
-                style={{
-                  position: "absolute",
-                  left: "50%",
-                  top: "30%",
-                  marginTop: "100px",
-                  marginLeft: "-100px",
-                }}
-              >
-                Be the first to comment!
-              </Typography>
             </div>
+          ) : (
+            comments != null && (
+              <div>
+                <img
+                  alt="Add Message"
+                  src="/images/add-message.svg"
+                  style={{
+                    position: "absolute",
+                    width: "96px",
+                    height: "96px",
+                    left: "50%",
+                    top: "30%",
+                    marginLeft: "-47px",
+                  }}
+                ></img>
+                <Typography
+                  className={classes.text}
+                  style={{
+                    position: "absolute",
+                    left: "50%",
+                    top: "30%",
+                    marginTop: "100px",
+                    marginLeft: "-100px",
+                  }}
+                >
+                  Be the first to comment!
+                </Typography>
+              </div>
+            )
           )}
         </div>
       </PerfectScrollbar>
