@@ -4,7 +4,9 @@ import PropTypes from "prop-types";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import CommentService from "../../../../services/CommentService";
 import { createBrowserHistory } from "history";
+import { NumberPlatesSearch } from "../../components";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import ArrowIcon from "@material-ui/icons/ArrowForward";
 import {
   CardHeader,
   List,
@@ -23,28 +25,22 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     borderRadius: "15px",
     backgroundColor: "#e6e4df",
-    marginTop: "2vh",
+    marginTop: "3vh",
   },
   inline: {
     display: "inline",
   },
-  content: {
-    paddingLeft: "5px",
-    paddingTop: "0px",
-  },
   listStyle: {
-    paddingTop: "12vh",
+    paddingTop: "100pxvh",
     marginBottom: "1%",
     maxHeight: "90%",
   },
   commentField: {},
   fixedHeader: {
     backgroundColor: "#ffcf4e",
-    position: "fixed",
     top: "0",
     width: "100%",
-    zIndex: "100",
-    height: "10vh",
+    height: "100px",
   },
   fixedFooter: {
     backgroundColor: "#ffcf4e",
@@ -145,13 +141,16 @@ const CommentsTable = (props) => {
     setComment({ ...comment, [name]: value });
   };
 
-  const handleSubmit = (event) => {
+  const handleKeyDown = (event) => {
     if (event.keyCode === 13) {
       event.preventDefault();
-
-      comment.numberPlate = searchTerm;
-      CreateComment(comment);
+      handleSubmit();
     }
+  };
+
+  const handleSubmit = () => {
+    comment.numberPlate = searchTerm;
+    CreateComment(comment);
   };
 
   const CreateComment = async (data) => {
@@ -184,15 +183,21 @@ const CommentsTable = (props) => {
       <PerfectScrollbar>
         <CardHeader
           className={classes.fixedHeader}
-          variant="text"
           title={
-            <Badge style={{ fontWeight: "bold" }}>
+            <div>
               <ArrowBackIcon
-                style={{ marginRight: "15%" }}
+                style={{ marginRight: "2%", marginTop: "15px", float: "left" }}
                 onClick={browserHistory.goBack}
               ></ArrowBackIcon>
-              {location.state.searchTerm}
-            </Badge>
+              <NumberPlatesSearch
+                style={{
+                  maxWidth: "250px",
+                  float: "left",
+                }}
+                defaultValue={location.state.searchTerm}
+                isReadonly={true}
+              />
+            </div>
           }
         />
         <div className={classes.commentsContainer}>
@@ -289,11 +294,15 @@ const CommentsTable = (props) => {
           value={comment.comment}
           name="comment"
           onChange={handleInputChange}
-          onKeyDown={handleSubmit}
-          style={{ width: "100%" }}
+          onKeyDown={handleKeyDown}
           variant="outlined"
           label="Write a comment"
+          style={{ float: "left", width: "89%" }}
         />
+        <ArrowIcon
+          style={{ marginTop: "15px", float: "left", marginLeft: "3%" }}
+          onClick={handleSubmit}
+        ></ArrowIcon>
       </CardContent>
     </CardContent>
   );

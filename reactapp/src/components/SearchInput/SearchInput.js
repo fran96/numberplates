@@ -27,7 +27,7 @@ const CssTextField = withStyles({
 })(TextField);
 
 const SearchInput = (props) => {
-  const { className, onChange, keyDown, style, ...rest } = props;
+  const { className, onChange, keyDown, isReadonly, ...rest } = props;
   const classes = useStyles();
   const numberPlateRegex = /^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/;
   // /^[+]?\d+([.]\d+)?$/;
@@ -46,7 +46,7 @@ const SearchInput = (props) => {
   };
 
   return (
-    <Paper {...rest} className={clsx(classes.root, className)} style={style}>
+    <Paper {...rest} className={clsx(classes.root, className)}>
       <img src="images/eumt.svg" />
       <CssTextField
         {...rest}
@@ -55,6 +55,7 @@ const SearchInput = (props) => {
         error
         InputProps={{
           disableUnderline: true,
+          readOnly: isReadonly,
         }}
         helperText={errorText != "" ? errorText : ""}
       />

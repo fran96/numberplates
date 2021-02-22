@@ -131,6 +131,7 @@ const NumberPlatesSearchView = () => {
                 searchTerm={setSearchTerm}
                 keyDown={setKeyDown}
                 style={{ width: "250px" }}
+                isReadonly={false}
               />
             </div>
           </div>

@@ -4,43 +4,31 @@ import clsx from "clsx";
 import { makeStyles } from "@material-ui/styles";
 import { SearchInput } from "../../../../components";
 
-const useStyles = makeStyles((theme) => ({
-  // root: {},
-  // row: {
-  // 	height: "60px",
-  // 	display: "flex",
-  // 	alignItems: "center",
-  // 	[theme.breakpoints.down("xs")]: {
-  // 		width: "50%",
-  // 		margin: "0 auto",
-  // 	},
-  // },
-  // spacer: {
-  // 	flexGrow: 1,
-  // },
-  // importButton: {
-  // 	marginRight: theme.spacing(1),
-  // },
-  // exportButton: {
-  // 	marginRight: theme.spacing(1),
-  // }
-}));
+const useStyles = makeStyles((theme) => ({}));
 
 const NumberPlatesSearch = (props) => {
-  const { className, clientMessage, searchTerm, keyDown, ...rest } = props;
+  const {
+    className,
+    clientMessage,
+    searchTerm,
+    keyDown,
+
+    defaultValue,
+    isReadonly,
+    ...rest
+  } = props;
 
   const classes = useStyles();
 
   return (
     <div {...rest} className={clsx(classes.root, className)}>
       <div className={classes.row}>
-        <span className={classes.spacer} />
-      </div>
-      <div className={classes.row}>
         <SearchInput
+          defaultValue={defaultValue}
           placeholder="ABC 123"
           onChange={searchTerm}
           keyDown={keyDown}
+          isReadonly={isReadonly}
         />
       </div>
     </div>
