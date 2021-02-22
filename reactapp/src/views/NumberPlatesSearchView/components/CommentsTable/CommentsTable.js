@@ -60,7 +60,6 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: "1vh",
   },
   text: {
-    fontFamily: "/fonts/Gilroy-Medium",
     fontSize: "18px",
     lineHeight: "21px",
     letterSpacing: "0em",

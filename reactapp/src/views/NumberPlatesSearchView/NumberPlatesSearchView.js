@@ -9,7 +9,6 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   paper: {
-    padding: theme.spacing(2),
     textAlign: "center",
     boxShadow: "none",
     backgroundColor: "transparent",
@@ -26,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
   text: {
-    fontFamily: "/fonts/Gilroy-Medium",
     fontSize: "18px",
     lineHeight: "21px",
     letterSpacing: "0em",
@@ -59,7 +57,11 @@ const NumberPlatesSearchView = () => {
             container
             spacing={3}
             alignItems="center"
-            style={{ backgroundColor: "#FFCF4D;", minHeight: "35vh" }}
+            style={{
+              backgroundColor: "#FFCF4D;",
+              minHeight: "35vh",
+              marginBottom: "1%",
+            }}
             justify="center"
           >
             <Grid item xs={12}>
@@ -68,15 +70,14 @@ const NumberPlatesSearchView = () => {
                   alt="Zvoga"
                   src="/images/zvoga.png"
                   width="179px"
-                  height="46px"
+                  margin-left="89px"
                 ></img>
               </Paper>
             </Grid>
             <Grid item xs={6} style={{ marginTop: "15px" }}>
               <Paper className={classes.paper}>
                 <div className={classes.text}>
-                  The new way to comment <br />
-                  on other people's driving!
+                  The new way to comment on other people's driving!
                 </div>
               </Paper>
             </Grid>
@@ -94,30 +95,45 @@ const NumberPlatesSearchView = () => {
           </Grid>
         </Container>
         <div
-          style={{ backgroundColor: "purple", height: "150px", width: "100%" }}
+          style={{
+            backgroundColor: "purple",
+            height: "200px",
+            width: "100%",
+          }}
         >
-          <Container maxWidth="sm">
-            <Grid
-              container
-              spacing={3}
-              alignItems="center"
-              justify="center"
-              style={{ paddingTop: "5%" }}
+          <div
+            style={{
+              paddingTop: "30px",
+              display: "flex",
+              flexFlow: "row wrap",
+              justifyContent: "center",
+            }}
+          >
+            <div
+              className={classes.text}
+              style={{
+                color: "white",
+                paddingRight: "1%",
+                paddingTop: "1%",
+                paddingBottom: "5%",
+                float: "left",
+              }}
             >
-              <Grid item xs={6}>
-                <div className={classes.text} style={{ color: "white" }}>
-                  Enter a license plate <br /> number to view and post <br />{" "}
-                  comments:
-                </div>
-              </Grid>
-              <Grid item xs={6}>
-                <NumberPlatesSearch
-                  searchTerm={setSearchTerm}
-                  keyDown={setKeyDown}
-                />
-              </Grid>
-            </Grid>
-          </Container>
+              Enter a license plate number <br /> to view and post comments:
+            </div>
+            <div
+              style={{
+                paddingTop: "0.5%",
+                float: "left",
+              }}
+            >
+              <NumberPlatesSearch
+                searchTerm={setSearchTerm}
+                keyDown={setKeyDown}
+                style={{ width: "250px" }}
+              />
+            </div>
+          </div>
         </div>
 
         <div className={classes.footer}>

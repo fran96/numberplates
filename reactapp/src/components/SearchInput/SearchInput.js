@@ -1,72 +1,71 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
-import { makeStyles } from "@material-ui/styles";
-import { Paper, Input, TextField } from "@material-ui/core";
-import SearchIcon from "@material-ui/icons/Search";
-
+import { makeStyles, withStyles } from "@material-ui/styles";
+import { Paper, TextField } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-	root: {
-		borderRadius: "4px",
-		alignItems: "center",
-		padding: theme.spacing(1),
-		display: "flex",
-		flexBasis: 420,
-	},
-	icon: {
-		marginRight: theme.spacing(1),
-		color: theme.palette.text.secondary,
-	},
-	input: {
-		flexGrow: 1,
-		fontSize: "14px",
-		lineHeight: "16px",
-		letterSpacing: "-0.05px",
-	},
+  root: {
+    borderColour: "black",
+    borderStyle: "solid",
+    borderWidth: "thick",
+    alignItems: "center",
+    display: "inline-flex",
+    flexBasis: "20%",
+  },
 }));
 
+const CssTextField = withStyles({
+  root: {
+    "& .MuiInputBase-input": {
+      paddingLeft: "15px",
+      fontSize: "40px !important",
+      textTransform: "uppercase",
+      fontWeight: "bold",
+    },
+  },
+})(TextField);
+
 const SearchInput = (props) => {
-	const { className, onChange, keyDown, style, ...rest } = props;
-	const classes = useStyles();
-	const numberPlateRegex = /^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/;
-	// /^[+]?\d+([.]\d+)?$/;
-	const [errorText, setErrorText] = useState("");
-	const search = (event) => {
-		if (event.keyCode === 13) {
-			console.log(event.target.value);
-			if (event.target.value.match(numberPlateRegex)) {
-				setErrorText("");
+  const { className, onChange, keyDown, style, ...rest } = props;
+  const classes = useStyles();
+  const numberPlateRegex = /^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/;
+  // /^[+]?\d+([.]\d+)?$/;
+  const [errorText, setErrorText] = useState("");
+  const search = (event) => {
+    //  event.target.value = event.target.value.toUpperCase();
+    if (event.keyCode === 13) {
+      if (event.target.value.match(numberPlateRegex)) {
+        setErrorText("");
+        onChange(event.target.value.toUpperCase());
+        keyDown(true);
+      } else {
+        setErrorText("This doesn't seem to be a correct number plate.");
+      }
+    }
+  };
 
-				onChange(event.target.value);
-				keyDown(true);
-			} else {
-				setErrorText("Please enter a valid number plate format.");
-			}
-		}
-	};
-
-	return (
-		<Paper {...rest} className={clsx(classes.root, className)} style={style}>
-			<SearchIcon className={classes.icon} />
-			<TextField
-				{...rest}
-				onKeyDown={search}
-				id="searchInput"
-				className={classes.input}
-				error
-				InputProps={{ disableUnderline: true }}
-				helperText={errorText != "" ? errorText : ""}
-			/>
-		</Paper>
-	);
+  return (
+    <Paper {...rest} className={clsx(classes.root, className)} style={style}>
+      <img src="images/eumt.svg" />
+      <CssTextField
+        {...rest}
+        onKeyDown={search}
+        id="searchInput"
+        error
+        InputProps={{
+          disableUnderline: true,
+        }}
+        helperText={errorText != "" ? errorText : ""}
+      />
+    </Paper>
+  );
 };
 
 SearchInput.propTypes = {
-	className: PropTypes.string,
-	onChange: PropTypes.func,
-	style: PropTypes.object,
+  className: PropTypes.string,
+  onChange: PropTypes.func,
+  style: PropTypes.object,
 };
 
 export default SearchInput;
-

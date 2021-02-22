@@ -23,10 +23,7 @@ const useStyles = makeStyles((theme) => ({
   // },
   // exportButton: {
   // 	marginRight: theme.spacing(1),
-  // },
-  // searchInput: {
-  // 	margin: "0 auto",
-  // },
+  // }
 }));
 
 const NumberPlatesSearch = (props) => {
@@ -41,8 +38,7 @@ const NumberPlatesSearch = (props) => {
       </div>
       <div className={classes.row}>
         <SearchInput
-          className={classes.searchInput}
-          placeholder=""
+          placeholder="ABC 123"
           onChange={searchTerm}
           keyDown={keyDown}
         />
