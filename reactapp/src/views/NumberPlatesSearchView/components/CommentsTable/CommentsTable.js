@@ -79,6 +79,7 @@ const CssTextField = withStyles({
 
     "& .MuiOutlinedInput-input": {
       zIndex: "999",
+      fontSize: "16px",
     },
   },
 })(TextField);
