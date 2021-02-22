@@ -47,7 +47,7 @@ const SearchInput = (props) => {
 
   return (
     <Paper {...rest} className={clsx(classes.root, className)}>
-      <img src="images/eumt.svg" />
+      <img src="images/eumt.svg" height="100%" />
       <CssTextField
         {...rest}
         onKeyDown={search}

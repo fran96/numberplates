@@ -12,7 +12,7 @@ const NumberPlatesSearch = (props) => {
     clientMessage,
     searchTerm,
     keyDown,
-
+    style,
     defaultValue,
     isReadonly,
     ...rest
@@ -24,6 +24,7 @@ const NumberPlatesSearch = (props) => {
     <div {...rest} className={clsx(classes.root, className)}>
       <div className={classes.row}>
         <SearchInput
+          style={style}
           defaultValue={defaultValue}
           placeholder="ABC 123"
           onChange={searchTerm}

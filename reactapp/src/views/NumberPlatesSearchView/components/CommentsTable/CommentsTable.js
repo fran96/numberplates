@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#ffcf4e",
     top: "0",
     width: "100%",
-    height: "100px",
+    height: "90px",
   },
   fixedFooter: {
     backgroundColor: "#ffcf4e",
@@ -191,7 +191,8 @@ const CommentsTable = (props) => {
               ></ArrowBackIcon>
               <NumberPlatesSearch
                 style={{
-                  maxWidth: "250px",
+                  maxWidth: "220px",
+                  height: "55px",
                   float: "left",
                 }}
                 defaultValue={location.state.searchTerm}
