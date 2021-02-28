@@ -40,15 +40,27 @@ const Creator = (props) => {
         </div>
         <div>{contribution}</div>
         <div style={{ float: "left", paddingTop: "15px" }}>
-          <a href={linkedInUrl} className={classes.socialNetworkIcon}>
-            <img src="/images/linkedin.svg" />
-          </a>
-          <a href={githubUrl} className={classes.socialNetworkIcon}>
-            <img src="/images/github.svg" />
-          </a>
-          <a href={profileUrl} className={classes.socialNetworkIcon}>
-            <img src="/images/profile.svg" />
-          </a>
+          {linkedInUrl ? (
+            <a href={linkedInUrl} className={classes.socialNetworkIcon}>
+              <img src="/images/linkedin.svg" />
+            </a>
+          ) : (
+            ""
+          )}
+          {githubUrl ? (
+            <a href={githubUrl} className={classes.socialNetworkIcon}>
+              <img src="/images/github.svg" />
+            </a>
+          ) : (
+            ""
+          )}
+          {profileUrl ? (
+            <a href={profileUrl} className={classes.socialNetworkIcon}>
+              <img src="/images/profile.svg" />
+            </a>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>

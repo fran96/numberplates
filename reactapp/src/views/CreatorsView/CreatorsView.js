@@ -68,6 +68,7 @@ const CreatorsView = () => {
                 fullName="Grant Camilleri"
                 contribution="Product Design"
                 linkedInUrl="https://www.linkedin.com/in/grant-camilleri-90898711b"
+                profileUrl="https://grantcamilleri.me/"
               ></Creator>
             </Grid>
             <Grid item xs={2} />
