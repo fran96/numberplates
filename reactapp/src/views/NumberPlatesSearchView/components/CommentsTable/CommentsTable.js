@@ -40,7 +40,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#ffcf4e",
     top: "0",
     width: "100%",
-    height: "90px",
+    height: "80px",
+    position: "fixed",
+    zIndex: "100",
   },
   fixedFooter: {
     backgroundColor: "#ffcf4e",
@@ -54,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
     minHeight: "90vh",
     paddingLeft: "1vh",
     paddingRight: "1vh",
+    marginTop: "80px",
   },
   text: {
     fontSize: "18px",
@@ -180,27 +183,27 @@ const CommentsTable = (props) => {
         padding: "0px",
       }}
     >
+      <CardHeader
+        className={classes.fixedHeader}
+        title={
+          <div>
+            <ArrowBackIcon
+              style={{ marginRight: "2%", marginTop: "15px", float: "left" }}
+              onClick={browserHistory.goBack}
+            ></ArrowBackIcon>
+            <NumberPlatesSearch
+              style={{
+                maxWidth: "220px",
+                height: "55px",
+                float: "left",
+              }}
+              defaultValue={location.state.searchTerm}
+              isReadonly={true}
+            />
+          </div>
+        }
+      />
       <PerfectScrollbar>
-        <CardHeader
-          className={classes.fixedHeader}
-          title={
-            <div>
-              <ArrowBackIcon
-                style={{ marginRight: "2%", marginTop: "15px", float: "left" }}
-                onClick={browserHistory.goBack}
-              ></ArrowBackIcon>
-              <NumberPlatesSearch
-                style={{
-                  maxWidth: "220px",
-                  height: "55px",
-                  float: "left",
-                }}
-                defaultValue={location.state.searchTerm}
-                isReadonly={true}
-              />
-            </div>
-          }
-        />
         <div className={classes.commentsContainer}>
           {comments != null && comments.length > 0 ? (
             <List className={classes.listStyle}>
