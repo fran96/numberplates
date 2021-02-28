@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     },
     position: "fixed",
     left: 0,
-    bottom: 0,
+    bottom: 10,
     width: "100%",
     textAlign: "center",
   },
@@ -139,9 +139,9 @@ const NumberPlatesSearchView = () => {
 
         <div className={classes.footer}>
           <div>
-            <p style={{ color: "black" }}>
+            <a href="/creators" style={{ color: "black" }}>
               <b>Meet the creators</b>
-            </p>
+            </a>
           </div>
         </div>
       </React.Fragment>
