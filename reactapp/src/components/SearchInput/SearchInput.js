@@ -33,8 +33,7 @@ const SearchInput = (props) => {
   // /^[+]?\d+([.]\d+)?$/;
   const [errorText, setErrorText] = useState("");
   const search = (event) => {
-    //  event.target.value = event.target.value.toUpperCase();
-    if (event.keyCode === 13) {
+    if (event.target.value.length === 6 || event.keyCode === 13) {
       if (event.target.value.match(numberPlateRegex)) {
         setErrorText("");
         onChange(event.target.value.toUpperCase());
@@ -47,9 +46,10 @@ const SearchInput = (props) => {
 
   return (
     <Paper {...rest} className={clsx(classes.root, className)}>
-      <img src="images/eumt.svg" height="100%" />
+      <img src="images/eumt.svg" height="100%" alt="" />
       <CssTextField
         {...rest}
+        onChange={search}
         onKeyDown={search}
         id="searchInput"
         error
@@ -57,7 +57,7 @@ const SearchInput = (props) => {
           disableUnderline: true,
           readOnly: isReadonly,
         }}
-        helperText={errorText != "" ? errorText : ""}
+        helperText={errorText !== "" ? errorText : ""}
       />
     </Paper>
   );

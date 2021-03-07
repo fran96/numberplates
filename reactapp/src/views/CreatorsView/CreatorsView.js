@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/styles";
 import { Creator } from "./components";
-import { Grid, Paper, CssBaseline, Container } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
+import { Grid, Paper, Container } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,8 +27,6 @@ const useStyles = makeStyles((theme) => ({
 const CreatorsView = () => {
   const classes = useStyles();
 
-  let history = useHistory();
-
   return (
     <div className={classes.root}>
       <React.Fragment>
@@ -39,7 +36,7 @@ const CreatorsView = () => {
             spacing={3}
             alignItems="center"
             style={{
-              backgroundColor: "#FFCF4D;",
+              backgroundColor: "#FFCF4D",
               minHeight: "35vh",
               marginBottom: "1%",
             }}
@@ -106,4 +103,5 @@ const CreatorsView = () => {
   );
 };
 
+/* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default CreatorsView;

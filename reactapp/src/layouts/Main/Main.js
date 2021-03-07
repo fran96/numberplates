@@ -1,45 +1,31 @@
 import React from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
-import { makeStyles, useTheme } from "@material-ui/styles";
-import { useMediaQuery } from "@material-ui/core";
-
-import { Footer } from "./components";
+import { makeStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles((theme) => ({
-	root: {
-		// paddingTop: 56,
-		// height: "100%",
-		[theme.breakpoints.up("sm")]: {
-			// paddingTop: 64,
-		},
-	},
-	content: {
-		//height: "100%",
-	},
+  root: {
+    [theme.breakpoints.up("sm")]: {},
+  },
 }));
 
 const Main = (props) => {
-	const { children } = props;
+  const { children } = props;
 
-	const classes = useStyles();
-	const theme = useTheme();
-	const isDesktop = useMediaQuery(theme.breakpoints.up("lg"), {
-		defaultMatches: true,
-	});
-
-	return (
-		<div
-			className={clsx({
-				[classes.root]: true,
-			})}>
-			<main className={classes.content}>{children}</main>
-		</div>
-	);
+  const classes = useStyles();
+  return (
+    <div
+      className={clsx({
+        [classes.root]: true,
+      })}
+    >
+      <main className={classes.content}>{children}</main>
+    </div>
+  );
 };
 
 Main.propTypes = {
-	children: PropTypes.node,
+  children: PropTypes.node,
 };
 
 export default Main;

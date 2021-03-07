@@ -1,8 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import clsx from "clsx";
 import { makeStyles } from "@material-ui/styles";
-import { SearchInput } from "../../../../components";
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -17,14 +15,12 @@ const useStyles = makeStyles((theme) => ({
 
 const Creator = (props) => {
   const {
-    className,
     src,
     fullName,
     contribution,
     linkedInUrl,
     githubUrl,
     profileUrl,
-    ...rest
   } = props;
 
   const classes = useStyles();
@@ -42,21 +38,21 @@ const Creator = (props) => {
         <div style={{ float: "left", paddingTop: "15px" }}>
           {linkedInUrl ? (
             <a href={linkedInUrl} className={classes.socialNetworkIcon}>
-              <img src="/images/linkedin.svg" />
+              <img src="/images/linkedin.svg" alt="LinkedIn" />
             </a>
           ) : (
             ""
           )}
           {githubUrl ? (
             <a href={githubUrl} className={classes.socialNetworkIcon}>
-              <img src="/images/github.svg" />
+              <img src="/images/github.svg" alt="Github" />
             </a>
           ) : (
             ""
           )}
           {profileUrl ? (
             <a href={profileUrl} className={classes.socialNetworkIcon}>
-              <img src="/images/profile.svg" />
+              <img src="/images/profile.svg" alt="Profile" />
             </a>
           ) : (
             ""

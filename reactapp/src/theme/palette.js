@@ -3,6 +3,7 @@ import { colors } from '@material-ui/core';
 const white = '#FFFFFF';
 const black = '#000000';
 
+/* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
   black,
   white,

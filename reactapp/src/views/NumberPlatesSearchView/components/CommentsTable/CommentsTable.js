@@ -15,7 +15,6 @@ import {
   Typography,
   CardContent,
   TextField,
-  Badge,
   Tooltip,
 } from "@material-ui/core";
 import { useLocation } from "react-router-dom";
@@ -84,7 +83,7 @@ const CssTextField = withStyles({
 })(TextField);
 
 const CommentsTable = (props) => {
-  const { className, ...rest } = props;
+  //const ps = useRef();
   const location = useLocation();
   const classes = useStyles();
   const initialCommentState = {
@@ -98,6 +97,7 @@ const CommentsTable = (props) => {
 
   const commentCreated = async () => {
     await filterCommentsByNumberPlate();
+    // ps.current.scrollBottom = 0;
   };
 
   let today = new Date();
@@ -108,7 +108,7 @@ const CommentsTable = (props) => {
     var daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
 
     switch (true) {
-      case daysDifference == 0:
+      case daysDifference === 0:
         return "today";
       case daysDifference <= 7:
         return "this week";
@@ -128,8 +128,7 @@ const CommentsTable = (props) => {
         setTimeout(() => setShowLoading(true), 500);
         return;
       }
-
-      var sortedResponse = response.data.sort(compareNumbers);
+      response.data.sort(compareNumbers);
       setComments(response.data);
     }
   };
@@ -160,7 +159,7 @@ const CommentsTable = (props) => {
     try {
       await CommentService.create(data);
       commentCreated();
-      setComment({ ...comment, ["comment"]: "" });
+      setComment({ ...comment, comment: "" });
     } catch {
       console.log("Error");
     }
@@ -171,7 +170,6 @@ const CommentsTable = (props) => {
     var bDate = new Date(b.timestamp);
     return bDate - aDate;
   }
-
   useEffect(() => {
     setSearchTerm(location.state.searchTerm);
   }, [location]);
@@ -204,6 +202,7 @@ const CommentsTable = (props) => {
         }
       />
       <PerfectScrollbar>
+        {/* containerRef={(el) => (ps.current = el)}> */}
         <div className={classes.commentsContainer}>
           {comments != null && comments.length > 0 ? (
             <List className={classes.listStyle}>

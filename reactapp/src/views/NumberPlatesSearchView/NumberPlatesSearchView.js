@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/styles";
 import { NumberPlatesSearch } from "./components";
-import { Grid, Paper, CssBaseline, Container } from "@material-ui/core";
+import { Grid, Paper, Container } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -48,7 +48,7 @@ const NumberPlatesSearchView = () => {
         },
       });
     }
-  }, [keyDown]);
+  }, [keyDown, searchTerm, history]);
   return (
     <div className={classes.root}>
       <React.Fragment>
@@ -58,7 +58,7 @@ const NumberPlatesSearchView = () => {
             spacing={3}
             alignItems="center"
             style={{
-              backgroundColor: "#FFCF4D;",
+              backgroundColor: "#FFCF4D",
               minHeight: "35vh",
               marginBottom: "1%",
             }}
