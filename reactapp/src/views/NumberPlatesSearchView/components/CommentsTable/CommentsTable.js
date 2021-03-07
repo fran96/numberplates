@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { makeStyles, withStyles } from "@material-ui/styles";
 import PropTypes from "prop-types";
 import PerfectScrollbar from "react-perfect-scrollbar";
@@ -83,7 +83,7 @@ const CssTextField = withStyles({
 })(TextField);
 
 const CommentsTable = (props) => {
-  //const ps = useRef();
+  const ps = useRef();
   const location = useLocation();
   const classes = useStyles();
   const initialCommentState = {
@@ -95,9 +95,16 @@ const CommentsTable = (props) => {
   const [comments, setComments] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
+  function scrollTop() {
+    const curr = ps.current;
+    if (curr) {
+      curr.scrollTop = 0;
+    }
+  }
+
   const commentCreated = async () => {
     await filterCommentsByNumberPlate();
-    // ps.current.scrollBottom = 0;
+    scrollTop();
   };
 
   let today = new Date();
@@ -201,8 +208,7 @@ const CommentsTable = (props) => {
           </div>
         }
       />
-      <PerfectScrollbar>
-        {/* containerRef={(el) => (ps.current = el)}> */}
+      <PerfectScrollbar containerRef={(el) => (ps.current = el)}>
         <div className={classes.commentsContainer}>
           {comments != null && comments.length > 0 ? (
             <List className={classes.listStyle}>
