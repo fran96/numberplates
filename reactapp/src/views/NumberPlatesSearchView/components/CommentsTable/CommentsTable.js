@@ -188,6 +188,8 @@ const CommentsTable = (props) => {
         padding: "0px",
       }}
     >
+
+    <meta name="description" content="Comments"></meta>
       <CardHeader
         className={classes.fixedHeader}
         title={

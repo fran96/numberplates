@@ -30,13 +30,14 @@ const SearchInput = (props) => {
   const { className, onChange, keyDown, isReadonly, ...rest } = props;
   const classes = useStyles();
   const numberPlateRegex = /^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/;
-  // /^[+]?\d+([.]\d+)?$/;
+
   const [errorText, setErrorText] = useState("");
   const search = (event) => {
-    if (event.target.value.length === 6 || event.keyCode === 13) {
-      if (event.target.value.match(numberPlateRegex)) {
+    let val = event.target.value.replace(/ /g, '');
+    if (val.length === 6 || event.keyCode === 13) {
+      if (val.match(numberPlateRegex)) {
         setErrorText("");
-        onChange(event.target.value.toUpperCase());
+        onChange(val.toUpperCase());
         keyDown(true);
       } else {
         setErrorText("This doesn't seem to be a correct number plate.");

@@ -51,6 +51,8 @@ const NumberPlatesSearchView = () => {
   }, [keyDown, searchTerm, history]);
   return (
     <div className={classes.root}>
+      
+    <meta name="description" content="Search by numberplate"></meta>
       <React.Fragment>
         <Container maxWidth="sm">
           <Grid
