@@ -69,6 +69,7 @@ const NumberPlatesSearchView = () => {
             <Grid item xs={12}>
               <Paper className={classes.paper}>
                 <img
+                title="Zvoga Malta"
                   alt="Zvoga"
                   src="/images/zvoga.png"
                   width="179px"

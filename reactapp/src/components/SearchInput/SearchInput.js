@@ -47,7 +47,7 @@ const SearchInput = (props) => {
 
   return (
     <Paper {...rest} className={clsx(classes.root, className)}>
-      <img src="images/eumt.svg" height="100%" alt="" />
+      <img src="images/eumt.svg" height="100%" alt="Zvoga Malta Comments" title="Zvoga Malta Comments" />
       <CssTextField
         {...rest}
         onChange={search}
