@@ -33,7 +33,7 @@ const SearchInput = (props) => {
 
   const [errorText, setErrorText] = useState("");
   const search = (event) => {
-    let val = event.target.value.replace(/ /g, '');
+    let val = event.target.value.replace(/ /g, "");
     if (val.length === 6 || event.keyCode === 13) {
       if (val.match(numberPlateRegex)) {
         setErrorText("");
@@ -47,7 +47,13 @@ const SearchInput = (props) => {
 
   return (
     <Paper {...rest} className={clsx(classes.root, className)}>
-      <img src="images/eumt.svg" height="100%" alt="Zvoga Malta Comments" title="Zvoga Malta Comments" />
+      <img
+        src="images/eumt.svg"
+        height="100%"
+        width="16%"
+        alt="Zvoga Malta Comments"
+        title="Zvoga Malta Comments"
+      />
       <CssTextField
         {...rest}
         onChange={search}

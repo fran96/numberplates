@@ -51,8 +51,7 @@ const NumberPlatesSearchView = () => {
   }, [keyDown, searchTerm, history]);
   return (
     <div className={classes.root}>
-      
-    <meta name="description" content="Search by numberplate"></meta>
+      <meta name="description" content="Search by numberplate"></meta>
       <React.Fragment>
         <Container maxWidth="sm">
           <Grid
@@ -69,10 +68,11 @@ const NumberPlatesSearchView = () => {
             <Grid item xs={12}>
               <Paper className={classes.paper}>
                 <img
-                title="Zvoga Malta"
+                  title="Zvoga Malta"
                   alt="Zvoga"
                   src="/images/zvoga.png"
                   width="179px"
+                  height="100%"
                   margin-left="89px"
                 ></img>
               </Paper>

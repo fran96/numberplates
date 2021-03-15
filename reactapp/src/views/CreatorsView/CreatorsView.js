@@ -47,6 +47,7 @@ const CreatorsView = () => {
                   alt="Zvoga"
                   src="/images/zvoga.png"
                   width="179px"
+                  height="100%"
                   margin-left="89px"
                 ></img>
               </Paper>
