@@ -50,7 +50,6 @@ const SearchInput = (props) => {
       <img
         src="images/eumt.svg"
         height="100%"
-        width="16%"
         alt="Zvoga Malta Comments"
         title="Zvoga Malta Comments"
       />
