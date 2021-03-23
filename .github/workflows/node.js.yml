@@ -5,28 +5,28 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [master]
   pull_request:
-    branches: [ main ]
+    branches: [master]
+
+defaults:
+  run:
+    working-directory: ./web/reactapp
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
-        node-version: [10.x, 12.x, 14.x, 15.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        node-version: [14.x]
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - working-directory: ./reactapp
-      run: npm ci
-    - working-directory: ./reactapp
-      run: npm run build --if-present
-    - working-directory: ./reactapp
-    run: npm test
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm run build --if-present
+#      - run: npm test --passWithNoTests
