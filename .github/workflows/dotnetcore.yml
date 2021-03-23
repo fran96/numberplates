@@ -17,11 +17,11 @@ jobs:
       with:
         dotnet-version: 3.1.101
     - name: Install dependencies
-      working-directory: ./Numberplates
+      working-directory: ./NumberPlates
       run: dotnet restore
     - name: Build
-      working-directory: ./Numberplates
+      working-directory: ./NumberPlates
       run: dotnet build --configuration Release --no-restore
     - name: Test
-      working-directory: ./src
+      working-directory: ./NumberPlates
       run: dotnet test --no-restore --verbosity normal
