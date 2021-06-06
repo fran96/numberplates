@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/styles";
 import { NumberPlatesSearch } from "./components";
 import { Grid, Paper, Container } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
+import ReactGA from "react-ga";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,6 +31,15 @@ const useStyles = makeStyles((theme) => ({
     letterSpacing: "0em",
     textAlign: "right",
   },
+  cookies: {
+    color: "black",
+    backgroundColor: "transparent",
+    fontWeight: "bold",
+    border: "none",
+    "&:hover": {
+      color: "red",
+    },
+  },
 }));
 
 const NumberPlatesSearchView = () => {
@@ -41,6 +51,12 @@ const NumberPlatesSearchView = () => {
 
   useEffect(() => {
     if (keyDown) {
+      ReactGA.event({
+        category: "Comments",
+        action: "Search",
+        label: searchTerm,
+      });
+
       history.push({
         pathname: "/comments",
         state: {
@@ -88,7 +104,7 @@ const NumberPlatesSearchView = () => {
               <Paper className={classes.paper}>
                 <img
                   alt="Zvoga"
-                  src="/images/car-accident.png"
+                  src="/images/car-yellow-flash.png"
                   width="83px"
                   height="58px"
                   margin-bottom="50px"
@@ -142,8 +158,21 @@ const NumberPlatesSearchView = () => {
 
         <div className={classes.footer}>
           <div>
-            <a href="/creators" style={{ color: "black" }}>
-              <b>Meet the creators</b>
+            <a
+              style={{ color: "black", cursor: "pointer", fontWeight: "bold" }}
+              class="termly-cookie-preference-button"
+              onClick={() => {
+                window.displayPreferenceModal();
+              }}
+            >
+              Manage Cookie Preferences
+            </a>
+            &nbsp; &nbsp; &nbsp; &nbsp;
+            <a
+              href="https://app.termly.io/document/privacy-policy/8a2e7228-4538-4253-98aa-307e401306b3"
+              style={{ color: "black" }}
+            >
+              <b>Privacy Policy</b>
             </a>
           </div>
         </div>

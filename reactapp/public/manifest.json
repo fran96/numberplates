@@ -3,17 +3,12 @@
   "name": "Zvoga Malta",
   "icons": [
     {
-      "src": "images/car-accident-64.png",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/png"
-    },
-    {
-      "src": "images/car-accident-192.png",
+      "src": "images/android-chrome-192x192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "images/car-accident-512.png",
+      "src": "images/android-chrome-512x512.png",
       "type": "image/png",
       "sizes": "512x512"
     }

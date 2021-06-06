@@ -18,6 +18,7 @@ import {
   Tooltip,
 } from "@material-ui/core";
 import { useLocation } from "react-router-dom";
+import ReactGA from "react-ga";
 
 const useStyles = makeStyles((theme) => ({
   comment: {
@@ -164,6 +165,12 @@ const CommentsTable = (props) => {
 
   const CreateComment = async (data) => {
     try {
+      ReactGA.event({
+        category: "Comments",
+        action: "Create",
+        label: data.numberPlate,
+      });
+
       await CommentService.create(data);
       commentCreated();
       setComment({ ...comment, comment: "" });
@@ -188,8 +195,7 @@ const CommentsTable = (props) => {
         padding: "0px",
       }}
     >
-
-    <meta name="description" content="Comments"></meta>
+      <meta name="description" content="Comments"></meta>
       <CardHeader
         className={classes.fixedHeader}
         title={

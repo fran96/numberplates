@@ -7,17 +7,20 @@ import "./assets/scss/index.scss";
 import Routes from "./Routes";
 import { ThemeProvider } from "@material-ui/styles";
 import theme from "./theme";
+import ReactGA from "react-ga";
+
+ReactGA.initialize("UA-189117829-1");
 
 const browserHistory = createBrowserHistory();
 
 export default class App extends Component {
-	render() {
-		return (
-			<ThemeProvider theme={theme}>
-				<Router history={browserHistory}>
-					<Routes />
-				</Router>
-			</ThemeProvider>
-		);
-	}
+  render() {
+    return (
+      <ThemeProvider theme={theme}>
+        <Router history={browserHistory}>
+          <Routes />
+        </Router>
+      </ThemeProvider>
+    );
+  }
 }
