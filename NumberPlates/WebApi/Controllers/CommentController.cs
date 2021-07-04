@@ -20,12 +20,12 @@ namespace NumberPlates.WebApi.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
-        public async Task<IEnumerable<CommentViewModel>> GetAll()
-        {
-            var comments = await _commentService.GetAllCommentsAsync();
-            return _mapper.Map<IEnumerable<CommentViewModel>>(comments);
-        }
+        // [HttpGet]
+        // public async Task<IEnumerable<CommentViewModel>> GetAll()
+        // {
+        //     var comments = await _commentService.GetAllCommentsAsync();
+        //     return _mapper.Map<IEnumerable<CommentViewModel>>(comments);
+        // }
 
         [HttpGet("{id}")]
         public async Task<CommentViewModel> Get(int id)

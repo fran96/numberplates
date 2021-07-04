@@ -25,12 +25,12 @@ namespace NumberPlates.WebApi.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
-        public async Task<IEnumerable<NumberPlateViewModel>> GetAll()
-        {
-            var numberPlates = await _numberPlateService.GetAllNumberPlatesAsync();
-            return _mapper.Map<IEnumerable<NumberPlateViewModel>>(numberPlates);
-        }
+        // [HttpGet]
+        // public async Task<IEnumerable<NumberPlateViewModel>> GetAll()
+        // {
+        //     var numberPlates = await _numberPlateService.GetAllNumberPlatesAsync();
+        //     return _mapper.Map<IEnumerable<NumberPlateViewModel>>(numberPlates);
+        // }
 
         [HttpGet("{id}")]
         public async Task<NumberPlateViewModel> Get(int id)
@@ -59,22 +59,22 @@ namespace NumberPlates.WebApi.Controllers
             return Ok(_mapper.Map<NumberPlateViewModel>(numberplate));
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Put(int id, string numberPlate)
-        {
-            if (string.IsNullOrWhiteSpace(numberPlate))
-            {
-                return BadRequest();
-            }
-            
-            var numberplate = await _numberPlateService.UpdateNumberPlateAsync(id, numberPlate);
-            return Ok(_mapper.Map<NumberPlateViewModel>(numberplate));
-        }
+        // [HttpPut]
+        // public async Task<IActionResult> Put(int id, string numberPlate)
+        // {
+        //     if (string.IsNullOrWhiteSpace(numberPlate))
+        //     {
+        //         return BadRequest();
+        //     }
 
-        [HttpDelete]
-        public async Task<bool> Delete(int id)
-        {
-            return await _numberPlateService.DeleteNumberPlateAsync(id);
-        }
+        //     var numberplate = await _numberPlateService.UpdateNumberPlateAsync(id, numberPlate);
+        //     return Ok(_mapper.Map<NumberPlateViewModel>(numberplate));
+        // }
+
+        // [HttpDelete]
+        // public async Task<bool> Delete(int id)
+        // {
+        //     return await _numberPlateService.DeleteNumberPlateAsync(id);
+        // }
     }
 }
