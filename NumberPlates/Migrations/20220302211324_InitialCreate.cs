@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace NumberPlates.Migrations
 {
-    public partial class InitialDb : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -51,7 +51,7 @@ namespace NumberPlates.Migrations
             migrationBuilder.InsertData(
                 table: "comments",
                 columns: new[] { "Id", "Comment", "IpAddress", "NumberPlateId", "Timestamp" },
-                values: new object[] { 1, "Doesn't know what an indicator is.", "12.3.4", 1, new DateTime(2020, 12, 8, 0, 0, 0, 0, DateTimeKind.Local) });
+                values: new object[] { 1, "Doesn't know what an indicator is.", "12.3.4", 1, new DateTime(2022, 3, 2, 0, 0, 0, 0, DateTimeKind.Local) });
 
             migrationBuilder.CreateIndex(
                 name: "IX_comments_NumberPlateId",

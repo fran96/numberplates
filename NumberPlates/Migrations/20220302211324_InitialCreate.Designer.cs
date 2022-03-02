@@ -10,8 +10,8 @@ using NumberPlates.Data;
 namespace NumberPlates.Migrations
 {
     [DbContext(typeof(NumberPlateDbContext))]
-    [Migration("20201208202735_InitialDb")]
-    partial class InitialDb
+    [Migration("20220302211324_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,7 +53,7 @@ namespace NumberPlates.Migrations
                             Comment = "Doesn't know what an indicator is.",
                             IpAddress = "12.3.4",
                             NumberPlateId = 1,
-                            Timestamp = new DateTime(2020, 12, 8, 0, 0, 0, 0, DateTimeKind.Local)
+                            Timestamp = new DateTime(2022, 3, 2, 0, 0, 0, 0, DateTimeKind.Local)
                         });
                 });
 

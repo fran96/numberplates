@@ -23,7 +23,7 @@ const handleError = (error) => {
 };
 
 const service = axios.create({
-	baseURL: process.env.REACT_APP_API_BASE_URL,
+	baseURL: "http://localhost:5000",
 	headers: {
 		Accept: "application/json",
 		"Content-Type": "application/json",

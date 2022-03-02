@@ -1,11 +1,20 @@
-# numberplates
+# Numberplates concept
 
 ![Product Visual](product.jpeg)
 
-# Deployment
+#
 
-    docker-compose up -d
+# How to run
 
-    https://www.nginx.com/blog/using-free-ssltls-certificates-from-lets-encrypt-with-nginx/#auto-renewal
+## Database
 
-    certbot --nginx -d zvoga.com -d www.zvoga.com -d api.zvoga.com
+    docker-compose up -d postgres
+
+## Backend
+
+    cd NumberPlates
+    dotnet run
+
+## Frontend
+
+    npm run start

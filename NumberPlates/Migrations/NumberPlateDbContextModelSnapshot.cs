@@ -51,7 +51,7 @@ namespace NumberPlates.Migrations
                             Comment = "Doesn't know what an indicator is.",
                             IpAddress = "12.3.4",
                             NumberPlateId = 1,
-                            Timestamp = new DateTime(2020, 12, 8, 0, 0, 0, 0, DateTimeKind.Local)
+                            Timestamp = new DateTime(2022, 3, 2, 0, 0, 0, 0, DateTimeKind.Local)
                         });
                 });
 
