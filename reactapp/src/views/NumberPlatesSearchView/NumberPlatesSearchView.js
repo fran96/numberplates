@@ -156,26 +156,6 @@ const NumberPlatesSearchView = () => {
           </div>
         </div>
 
-        <div className={classes.footer}>
-          <div>
-            <a
-              style={{ color: "black", cursor: "pointer", fontWeight: "bold" }}
-              class="termly-cookie-preference-button"
-              onClick={() => {
-                window.displayPreferenceModal();
-              }}
-            >
-              Manage Cookie Preferences
-            </a>
-            &nbsp; &nbsp; &nbsp; &nbsp;
-            <a
-              href="https://app.termly.io/document/privacy-policy/8a2e7228-4538-4253-98aa-307e401306b3"
-              style={{ color: "black" }}
-            >
-              <b>Privacy Policy</b>
-            </a>
-          </div>
-        </div>
       </React.Fragment>
     </div>
   );
