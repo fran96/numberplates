@@ -10,11 +10,11 @@
 
     docker-compose up -d postgres
 
-## Backend
+## Backend (C#)
 
     cd NumberPlates
     dotnet run
 
-## Frontend
+## Frontend (React)
 
     npm run start
